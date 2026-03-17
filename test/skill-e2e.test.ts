@@ -1654,13 +1654,13 @@ IMPORTANT:
 
 describeE2E('Deferred skill E2E', () => {
   // Ship is destructive: pushes to remote, creates PRs, modifies VERSION/CHANGELOG
-  test.todo('/ship completes full workflow');
+  test.skip('/ship completes full workflow', () => {});
 
   // Setup-browser-cookies requires interactive browser picker UI
-  test.todo('/setup-browser-cookies imports cookies');
+  test.skip('/setup-browser-cookies imports cookies', () => {});
 
   // Gstack-upgrade is destructive: modifies skill installation directory
-  test.todo('/gstack-upgrade completes upgrade flow');
+  test.skip('/gstack-upgrade completes upgrade flow', () => {});
 });
 
 // Module-level afterAll — finalize eval collector after all tests complete

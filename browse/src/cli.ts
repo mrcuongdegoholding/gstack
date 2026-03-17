@@ -26,7 +26,7 @@ export function resolveServerScript(
   }
 
   // Dev mode: cli.ts runs directly from browse/src
-  if (metaDir.startsWith('/') && !metaDir.includes('$bunfs')) {
+  if (metaDir && !metaDir.includes('$bunfs')) {
     const direct = path.resolve(metaDir, 'server.ts');
     if (fs.existsSync(direct)) {
       return direct;
@@ -40,7 +40,6 @@ export function resolveServerScript(
       return adjacent;
     }
   }
-
   throw new Error(
     'Cannot find server.ts. Set BROWSE_SERVER_SCRIPT env or run from the browse source tree.'
   );

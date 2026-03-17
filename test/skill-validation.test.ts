@@ -197,7 +197,7 @@ describe('Update check preamble', () => {
     }
   });
 
-  test('update check bash block exits 0 when up to date', () => {
+  test.skipIf(process.platform === 'win32')('update check bash block exits 0 when up to date', () => {
     // Simulate the exact preamble command from SKILL.md
     const result = Bun.spawnSync(['bash', '-c',
       '_UPD=$(echo "" || true); [ -n "$_UPD" ] && echo "$_UPD" || true'
@@ -205,7 +205,7 @@ describe('Update check preamble', () => {
     expect(result.exitCode).toBe(0);
   });
 
-  test('update check bash block exits 0 when upgrade available', () => {
+  test.skipIf(process.platform === 'win32')('update check bash block exits 0 when upgrade available', () => {
     const result = Bun.spawnSync(['bash', '-c',
       '_UPD=$(echo "UPGRADE_AVAILABLE 0.3.3 0.4.0" || true); [ -n "$_UPD" ] && echo "$_UPD" || true'
     ], { stdout: 'pipe', stderr: 'pipe' });

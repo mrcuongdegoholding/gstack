@@ -554,8 +554,9 @@ for (const tmplPath of findTemplates()) {
   const relOutput = path.relative(ROOT, outputPath);
 
   if (DRY_RUN) {
-    const existing = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, 'utf-8') : '';
-    if (existing !== content) {
+    const existing = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, 'utf-8').replace(/\r\n/g, '\n') : '';
+    const normalizedContent = content.replace(/\r\n/g, '\n');
+    if (existing !== normalizedContent) {
       console.log(`STALE: ${relOutput}`);
       hasChanges = true;
     } else {

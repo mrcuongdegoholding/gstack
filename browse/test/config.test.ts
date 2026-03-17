@@ -16,11 +16,11 @@ describe('config', () => {
   describe('resolveConfig', () => {
     test('uses git root by default', () => {
       const config = resolveConfig({});
-      const gitRoot = getGitRoot();
+      const gitRoot = getGitRoot() as string;
       expect(gitRoot).not.toBeNull();
       expect(config.projectDir).toBe(gitRoot);
-      expect(config.stateDir).toBe(path.join(gitRoot!, '.gstack'));
-      expect(config.stateFile).toBe(path.join(gitRoot!, '.gstack', 'browse.json'));
+      expect(config.stateDir).toBe(path.join(gitRoot, '.gstack'));
+      expect(config.stateFile).toBe(path.join(gitRoot, '.gstack', 'browse.json'));
     });
 
     test('derives paths from BROWSE_STATE_FILE when set', () => {
@@ -199,14 +199,14 @@ describe('resolveServerScript', () => {
 
 describe('version mismatch detection', () => {
   test('detects when versions differ', () => {
-    const stateVersion = 'abc123';
-    const currentVersion = 'def456';
+    const stateVersion: string = 'abc123';
+    const currentVersion: string = 'def456';
     expect(stateVersion !== currentVersion).toBe(true);
   });
 
   test('no mismatch when versions match', () => {
-    const stateVersion = 'abc123';
-    const currentVersion = 'abc123';
+    const stateVersion: string = 'abc123';
+    const currentVersion: string = 'abc123';
     expect(stateVersion !== currentVersion).toBe(false);
   });
 

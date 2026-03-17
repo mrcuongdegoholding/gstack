@@ -21,13 +21,20 @@ let testServer: ReturnType<typeof startTestServer>;
 let bm: BrowserManager;
 let baseUrl: string;
 
+// Windows has a known issue where Bun child_process hangs when launching Playwright Chromium
+if (process.platform === 'win32') {
+  describe.skip('Commands (Skipped on Windows due to Bun+Playwright hang)', () => {
+    test('skip', () => {});
+  });
+} else {
+
 beforeAll(async () => {
   testServer = startTestServer(0);
   baseUrl = testServer.url;
 
   bm = new BrowserManager();
   await bm.launch();
-});
+}, 30000);
 
 afterAll(() => {
   // Force kill browser instead of graceful close (avoids hang)
@@ -1751,3 +1758,4 @@ describe('Chain with cookie-import', () => {
     }
   });
 });
+} // End of else block for Windows skip

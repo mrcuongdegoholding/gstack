@@ -26,9 +26,9 @@ describe('gen-skill-docs', () => {
   test('command table is sorted alphabetically within categories', () => {
     const content = fs.readFileSync(path.join(ROOT, 'SKILL.md'), 'utf-8');
     // Extract command names from the Navigation section as a test
-    const navSection = content.match(/### Navigation\n\|.*\n\|.*\n([\s\S]*?)(?=\n###|\n## )/);
+    const navSection = content.match(/### Navigation\r?\n\|.*\r?\n\|.*\r?\n([\s\S]*?)(?=\r?\n###|\r?\n## )/);
     expect(navSection).not.toBeNull();
-    const rows = navSection![1].trim().split('\n');
+    const rows = navSection![1].trim().split(/\r?\n/);
     const commands = rows.map(r => {
       const match = r.match(/\| `(\w+)/);
       return match ? match[1] : '';
@@ -91,7 +91,7 @@ describe('gen-skill-docs', () => {
   test('every generated SKILL.md has valid YAML frontmatter', () => {
     for (const skill of ALL_SKILLS) {
       const content = fs.readFileSync(path.join(ROOT, skill.dir, 'SKILL.md'), 'utf-8');
-      expect(content.startsWith('---\n')).toBe(true);
+      expect(content.startsWith('---\n') || content.startsWith('---\r\n')).toBe(true);
       expect(content).toContain('name:');
       expect(content).toContain('description:');
     }
@@ -107,7 +107,7 @@ describe('gen-skill-docs', () => {
     const output = result.stdout.toString();
     // Every skill should be FRESH
     for (const skill of ALL_SKILLS) {
-      const file = skill.dir === '.' ? 'SKILL.md' : `${skill.dir}/SKILL.md`;
+      const file = skill.dir === '.' ? 'SKILL.md' : path.join(skill.dir, 'SKILL.md');
       expect(output).toContain(`FRESH: ${file}`);
     }
     expect(output).not.toContain('STALE');

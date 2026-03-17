@@ -24,8 +24,8 @@
     "eval:watch": "bun run scripts/eval-watch.ts"
   },
   "dependencies": {
-    "playwright": "^1.58.2",
-    "diff": "^7.0.0"
+    "diff": "^8.0.3",
+    "playwright": "^1.58.2"
   },
   "engines": {
     "bun": ">=1.0.0"
@@ -41,6 +41,9 @@
     "devtools"
   ],
   "devDependencies": {
-    "@anthropic-ai/sdk": "^0.78.0"
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@types/bun": "^1.3.10",
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
   }
 }
